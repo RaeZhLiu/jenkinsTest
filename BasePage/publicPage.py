@@ -28,6 +28,7 @@ class BasePage(object):
             using_headless = config.get('env', 'using_headless')
             print("是否使用无界面：", using_headless)
         except KeyError:
+            # docker模式下强制设置无界面
             using_headless = True
             print('没有配置环境变量 using_headless, 强制设置无界面方式运行自动化测试')
 
