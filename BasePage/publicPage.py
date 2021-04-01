@@ -28,13 +28,14 @@ class BasePage(object):
             using_headless = config.get('env', 'using_headless')
             print("是否使用无界面：", using_headless)
         except KeyError:
-            using_headless = None
-            print('没有配置环境变量 using_headless, 按照有界面方式运行自动化测试')
+            using_headless = True
+            print('没有配置环境变量 using_headless, 强制设置无界面方式运行自动化测试')
 
         chrome_options = Options()
         if using_headless is not None and using_headless.lower() == 'true':
             print('使用无界面方式运行')
             chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--no-sandbox")
 
         self._driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'), options=chrome_options)
         self._driver.maximize_window()
